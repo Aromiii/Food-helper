@@ -5,13 +5,16 @@ import {appInfo} from './appInfo'
 export const frontendConfig = () => {
   return {
     appInfo,
-    recipeList: [ThirdPartyEmailPasswordReact.init({
-      signInAndUpFeature: {
-        providers: [
-          ThirdPartyEmailPasswordReact.Google.init(),
-        ],
-      },
-    }),
-      SessionReact.init(),],
+    recipeList: [
+      ThirdPartyEmailPasswordReact.init({
+        signInAndUpFeature: {
+          providers: [
+            ThirdPartyEmailPasswordReact.Google.init(),
+            ThirdPartyEmailPasswordReact.Github.init(),
+          ],
+        },
+      }),
+      SessionReact.init(),
+    ],
   }
 }
