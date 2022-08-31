@@ -1,19 +1,17 @@
-import type {NextPage} from 'next'
-import Head from 'next/head'
+import Head from "next/head";
 
-
-const Home: NextPage = () => {
+const Recipes = () => {
     return (
         <div>
             <Head>
-                <title>Food-helper</title>
+                <title>Recipes</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <h1>
-                Food-helper
+                recipes
             </h1>
         </div>
+
     )
 }
-
-export default Home;
+export default Recipes;
