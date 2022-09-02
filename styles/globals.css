@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .navbar_bg {
+        @apply text-3xl bg-gray-600 flex p-2 list-none
+        place-content-center place-items-center gap-9 h-16
+    }
+}

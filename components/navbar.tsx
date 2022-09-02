@@ -3,8 +3,8 @@ import Link from "next/link";
 
 const NavBar = () => {
     return (
-        <ul className="text-3xl bg-gray-600 flex p-2 list-none">
-            <li>
+        <ul className="navbar_bg">
+            <li className="navbar_main_page">
                 <Link href="/">
                     main_page
                 </Link>
