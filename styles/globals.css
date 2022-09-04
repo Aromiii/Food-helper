@@ -6,8 +6,8 @@
     h1 {
         @apply text-2xl font-extrabold;
     }
-    h2 {
-        @apply text-xl;
+    p {
+        @apply font-mono;
     }
 }
 
@@ -18,7 +18,7 @@
     }
 
     .recipeContainer {
-        @apply bg-gray-600 p-3 m-2 rounded-2xl h-40
+        @apply bg-gray-600 m-2 rounded-2xl h-96 object-cover overflow-hidden
     }
 
     .recipesSite {
