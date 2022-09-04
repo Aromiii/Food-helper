@@ -4,7 +4,7 @@ import Link from "next/link";
 const NavBar = () => {
     return (
         <ul className="navbar_bg">
-            <li className="navbar_main_page">
+            <li>
                 <Link href="/">
                     main_page
                 </Link>

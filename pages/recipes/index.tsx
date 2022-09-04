@@ -17,14 +17,11 @@ const Recipes = () => {
 
 
     return (
-        <div>
+        <div className="recipesSite">
             <Head>
                 <title>Recipes</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
             </Head>
-            <h1>
-                recipes
-            </h1>
             {
                 data.map((recipe) => <RecipeContainer id={recipe.id} name={recipe.name} desc={recipe.desc} key={recipe.id} />)
             }
