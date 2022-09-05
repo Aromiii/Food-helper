@@ -7,6 +7,7 @@ const Recipes = () => {
   const [data, setData] = useState([""])
 
   const getRecipes = () => {
+    //TODO
     axios.get("/api/recipes/---placeholder---")
       .then((res) => {
         setData(res.data);

@@ -35,3 +35,9 @@
         @apply rounded-3xl bg-gray-400 w-12 h-12 justify-center place-items-center flex
     }
 }
+
+.break-word
+{
+    word-wrap: break-word;
+    white-space: initial;
+}
