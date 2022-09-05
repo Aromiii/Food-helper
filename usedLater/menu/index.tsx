@@ -8,7 +8,7 @@ const Menu = () => {
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <h1>
-                menu
+                Menu
             </h1>
         </div>
 

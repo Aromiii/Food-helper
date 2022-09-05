@@ -1,35 +1,39 @@
 import React, {Component} from 'react';
 import Link from "next/link";
+import { IoFastFoodOutline } from "react-icons/io5";
+import { CgProfile } from "react-icons/cg";
+import { FaGalacticRepublic } from "react-icons/fa";
 
 const NavBar = () => {
-    return (
-        <ul className="navbar_bg">
-            <li>
-                <Link href="/">
-                    main_page
-                </Link>
-            </li>
-            <li>
-                <Link href="/recipes">
-                    recipes
-                </Link>
-            </li>
-            <li>
-                <Link href="/menu">
-                    menu
-                </Link>
-            </li>
-            <li>
-                <Link href="/shopping-list">
-                    shopping list
-                </Link>
-            </li>
-            <li>
-                <Link href="/auth">
-                    auth
-                </Link>
-            </li>
-        </ul>
-    )
+  return (
+    <ul className="navbar_bg">
+      <li className="navbarListItem">
+        <Link href="/">
+          <FaGalacticRepublic size/>
+        </Link>
+      </li>
+      <li className="navbarListItem m-auto">
+        <Link href="/recipes">
+          <IoFastFoodOutline size="35"/>
+        </Link>
+      </li>
+      <li className="navbarListItem">
+        <Link href="/auth">
+          <CgProfile size/>
+        </Link>
+      </li>
+    </ul>
+  )
 }
 export default NavBar;
+
+/*<li className="navbarListItem">
+  <Link href="/menu">
+    me
+  </Link>
+</li>
+<li className="navbarListItem">
+  <Link href="/shopping-list">
+    sl
+  </Link>
+</li>*/
