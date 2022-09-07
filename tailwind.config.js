@@ -5,7 +5,12 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        // added new 4 column grid as new4
+        'recipe3': 'repeat(auto-fit, minmax(300px, 500px))'
+      }
+    },
   },
   plugins: [],
   mode: 'jit',

@@ -2,9 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    h1 {
+        @apply text-2xl font-extrabold;
+    }
+
+    p {
+        @apply font-mono;
+    }
+}
+
 @layer components {
     .navbar_bg {
         @apply text-3xl bg-gray-600 flex p-2 list-none
         place-content-center place-items-center gap-9 h-16
     }
+
+    .recipeContainer {
+        @apply bg-gray-600 m-2 rounded-2xl h-96 object-cover overflow-hidden
+    }
+
+    .recipesSite {
+        @apply grid grid-cols-recipe3 justify-center place-content-start
+        bg-gradient-to-bl from-blue-800 to-green-400 h-[100%] min-h-[calc(100vh-4rem)]
+    }
+
+    .recipeContainerImage {
+        @apply rounded-2xl max-h-[60%] w-screen object-cover
+    }
+
+    .navbarListItem {
+        @apply rounded-3xl bg-gray-400 w-12 h-12 justify-center place-items-center flex
+    }
+}
+
+.break-word
+{
+    word-wrap: break-word;
+    white-space: initial;
 }
