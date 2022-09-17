@@ -17,6 +17,7 @@ const Recipes = () => {
   useEffect(() => getRecipes(), [])
 
 
+
   return (
     <div className="recipesSite">
       <Head>
@@ -24,8 +25,8 @@ const Recipes = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
       </Head>
       {
-        data.map((recipe) => <RecipeContainer id={recipe.id} name={recipe.name} desc={recipe.desc} key={recipe.id}
-                                              image={recipe.image}/>)
+        // @ts-ignore
+        data.map((recipe) => <RecipeContainer id={recipe.id} name={recipe.name} desc={recipe.desc} key={recipe.id} image={recipe.image}/>)
       }
     </div>
 

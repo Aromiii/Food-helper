@@ -9,7 +9,7 @@ const NavBar = () => {
     <ul className="navbar_bg">
       <li className="navbarListItem">
         <Link href="/">
-          <FaGalacticRepublic size/>
+          <FaGalacticRepublic size="35"/>
         </Link>
       </li>
       <li className="navbarListItem m-auto">
@@ -19,7 +19,7 @@ const NavBar = () => {
       </li>
       <li className="navbarListItem">
         <Link href="/auth">
-          <CgProfile size/>
+          <CgProfile size="35"/>
         </Link>
       </li>
     </ul>
