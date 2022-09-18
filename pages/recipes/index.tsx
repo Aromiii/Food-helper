@@ -1,7 +1,22 @@
 import Head from "next/head";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import RecipeContainer from "../../components/recipes/recipeContainer";
+import Link from "next/link";
+
+const RecipeContainer = (props: { data: { image: string; name: string; desc: string; id: string } }) => {
+  return (
+    <Link href={"/recipes/" + props.data.id}>
+      <div className="recipeContainer">
+        <img src={props.data.image} className="recipeContainerImage" alt="picture of food"/>
+        <div className="p-2">
+          <h1>{props.data.name}</h1>
+          <p>{props.data.desc}</p>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 
 const Recipes = () => {
   const [data, setData] = useState([""])
@@ -17,7 +32,6 @@ const Recipes = () => {
   useEffect(() => getRecipes(), [])
 
 
-
   return (
     <div className="recipesSite">
       <Head>
@@ -26,7 +40,7 @@ const Recipes = () => {
       </Head>
       {
         // @ts-ignore
-        data.map((recipe) => <RecipeContainer id={recipe.id} name={recipe.name} desc={recipe.desc} key={recipe.id} image={recipe.image}/>)
+        data.map((recipe) => <RecipeContainer data={recipe}/>)
       }
     </div>
 
