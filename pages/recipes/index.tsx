@@ -2,12 +2,13 @@ import Head from "next/head";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Link from "next/link";
+import Image from "next/image";
 
 const RecipeContainer = (props: { data: { image: string; name: string; desc: string; id: string } }) => {
   return (
     <Link href={"/recipes/" + props.data.id}>
       <div className="recipeContainer">
-        <img src={props.data.image} className="recipeContainerImage" alt="picture of food"/>
+        <Image src={props.data.image} className="recipeContainerImage" alt="picture of food"/>
         <div className="p-2">
           <h1>{props.data.name}</h1>
           <p>{props.data.desc}</p>
@@ -40,7 +41,7 @@ const Recipes = () => {
       </Head>
       {
         // @ts-ignore
-        data.map((recipe) => <RecipeContainer data={recipe}/>)
+        data.map((recipe) => <RecipeContainer data={recipe} key={recipe.id}/>)
       }
     </div>
 
