@@ -2,12 +2,10 @@ import Head from "next/head";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import Image from "next/image";
-
 
 const RecipeSiteBody = (props: { data: { image: string; name: string; recipe: string; desc: string } }) => {
   return <>
-    <Image src={props.data.image} className="object-cover h-56 w-screen" alt="Picture that user provided"/>
+    <img src={props.data.image} className="object-cover h-56 w-screen" alt="Picture that user provided"/>
     <div className="px-4 w-screen">
       <h1 className="my-1.5">
         {props.data.name}
