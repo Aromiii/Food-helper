@@ -1,11 +1,12 @@
 import {useState, useEffect} from 'react'
 import {supabase} from '../utils/supabaseClient'
 
+// @ts-ignore
 export default function Account({session}) {
   const [loading, setLoading] = useState(true)
-  const [username, setUsername] = useState(null)
-  const [website, setWebsite] = useState(null)
-  const [avatar_url, setAvatarUrl] = useState(null)
+  const [username, setUsername] = useState("")
+  const [website, setWebsite] = useState("")
+  const [avatar_url, setAvatarUrl] = useState("")
 
   useEffect(() => {
     getProfile()
@@ -48,13 +49,14 @@ export default function Account({session}) {
         setWebsite(data.website)
         setAvatarUrl(data.avatar_url)
       }
-    } catch (error) {
+    } catch (error: any) {
       alert(error.message)
     } finally {
       setLoading(false)
     }
   }
 
+  // @ts-ignore
   async function updateProfile({username, website, avatar_url}) {
     try {
       setLoading(true)
@@ -73,7 +75,7 @@ export default function Account({session}) {
       if (error) {
         throw error
       }
-    } catch (error) {
+    } catch (error: any) {
       alert(error.message)
     } finally {
       setLoading(false)
@@ -82,49 +84,49 @@ export default function Account({session}) {
 
   return (
     <div className="form-widget">
-        <div className="AuthItem">
-          <label className="AccountLabel" htmlFor="email">Email</label>
-          <input className="AccountInput" id="email" type="text" value={session.user.email} disabled/>
-        </div>
-        <div className="AuthItem">
-          <label className="AccountLabel" htmlFor="username">Name</label>
-          <input
-            className="AccountInput"
-            id="username"
-            type="text"
-            value={username || ''}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div className="AuthItem">
-          <label className="AccountLabel" htmlFor="website">Website</label>
-          <input
-            className="AccountInput"
-            id="website"
-            type="website"
-            value={website || ''}
-            onChange={(e) => setWebsite(e.target.value)}
-          />
-        </div>
+      <div className="AuthItem">
+        <label className="AccountLabel" htmlFor="email">Email</label>
+        <input className="AccountInput" id="email" type="text" value={session.user.email} disabled/>
+      </div>
+      <div className="AuthItem">
+        <label className="AccountLabel" htmlFor="username">Name</label>
+        <input
+          className="AccountInput"
+          id="username"
+          type="text"
+          value={username || ''}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+      </div>
+      <div className="AuthItem">
+        <label className="AccountLabel" htmlFor="website">Website</label>
+        <input
+          className="AccountInput"
+          id="website"
+          type="website"
+          value={website || ''}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
+      </div>
 
-        <div className="AuthItem">
-          <button
-            className="button primary block"
-            onClick={() => updateProfile({username, website, avatar_url})}
-            disabled={loading}
-          >
-            {loading ? 'Loading ...' : 'Update'}
-          </button>
-        </div>
+      <div className="AuthItem">
+        <button
+          className="button primary block"
+          onClick={() => updateProfile({username, website, avatar_url})}
+          disabled={loading}
+        >
+          {loading ? 'Loading ...' : 'Update'}
+        </button>
+      </div>
 
-        <div className="AuthItem">
-          <button
-            className="button block"
-            onClick={() => supabase.auth.signOut()}
-          >
-            Sign Out
-          </button>
-        </div>
+      <div className="AuthItem">
+        <button
+          className="button block"
+          onClick={() => supabase.auth.signOut()}
+        >
+          Sign Out
+        </button>
+      </div>
     </div>
   )
 }
