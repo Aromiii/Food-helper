@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../../utils/supabaseClient'
 import Auth from '../../components/Auth'
 import Account from '../../components/Account'
- 
+
 function AuthPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [session, setSession] = useState(null)
@@ -15,9 +15,10 @@ function AuthPage() {
         data: { session },
       } = await supabase.auth.getSession()
 
-      // only update the react state if the component is still mounted
+      // only update the React state if the component is still mounted
       if (mounted) {
         if (session) {
+          // @ts-ignore
           setSession(session)
         }
 
@@ -27,8 +28,10 @@ function AuthPage() {
 
     getInitialSession()
 
+    // @ts-ignore
     const { subscription } = supabase.auth.onAuthStateChange(
       (_event, session) => {
+        // @ts-ignore
         setSession(session)
       }
     )
@@ -40,11 +43,12 @@ function AuthPage() {
     }
   }, [])
 
+  // @ts-ignore
   return (
     <div className="w-screen h-[calc(100vh-4rem)] place-content-center flex">
       {!session ? (
         <Auth />
-      ) : (
+      ) : (// @ts-ignore
         <Account key={session.user.id} session={session} />
       )}
     </div>
