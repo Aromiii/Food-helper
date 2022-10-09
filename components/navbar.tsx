@@ -40,7 +40,6 @@ const NavBar = () => {
             <img src={localStorage.getItem("profilePic")!} className="rounded-3xl"/>
           </Link>
         )}
-
       </li>
     </ul>
   )

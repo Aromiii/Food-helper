@@ -1,24 +1,28 @@
 // Import the functions you need from the SDKs you need
 import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAjlx36rihQ_vS1KpU2WeCjTArR1Y_rh_M",
-  authDomain: "food-helper-a73b7.firebaseapp.com",
-  projectId: "food-helper-a73b7",
-  storageBucket: "food-helper-a73b7.appspot.com",
-  messagingSenderId: "404309027827",
-  appId: "1:404309027827:web:47b25e11243eb625ed8086",
-  measurementId: "G-9FCCSBNYT0"
+  apiKey: "AIzaSyDQlWrPV7vL1gPY3cjLIIt-1UUJaANGrEM",
+  authDomain: "food-helper-63fd0.firebaseapp.com",
+  projectId: "food-helper-63fd0",
+  storageBucket: "food-helper-63fd0.appspot.com",
+  messagingSenderId: "833087637499",
+  appId: "1:833087637499:web:b588bc7700c47a35266d5e"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
+
+// Initialize Firestore
+export const db = getFirestore()
 
 //Initialize provider
 const provider = new GoogleAuthProvider()

@@ -2,8 +2,12 @@ import Head from "next/head";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Link from "next/link";
+import { collection, getDocs } from "@firebase/firestore";
+import { db } from '../../config/firebase'
+import {any} from "prop-types";
 
 const RecipeContainer = (props: { data: { image: string; name: string; desc: string; id: string } }) => {
+
   return (
     <Link href={"/recipes/" + props.data.id}>
       <div className="recipeContainer">
@@ -19,17 +23,23 @@ const RecipeContainer = (props: { data: { image: string; name: string; desc: str
 
 
 const Recipes = () => {
-  const [data, setData] = useState([""])
+  const [recipes, setRecipes] = useState([])
 
-  const getRecipes = () => {
-    //TODO
-    axios.get("/api/recipes/---placeholder---")
-      .then((res) => {
-        setData(res.data);
-      })
-  }
+  // Collection refs
+  const colRef = collection(db, 'recipes')
 
-  useEffect(() => getRecipes(), [])
+// Get collection data
+  useEffect(() => {
+    getDocs(colRef)
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          setRecipes(recipes => [...recipes, { ...doc.data(), id: doc.id }])
+        })
+        console.log(recipes)
+      }).catch(error => {
+      console.log(error.message)
+    })
+  }, [])
 
 
   return (
@@ -40,7 +50,7 @@ const Recipes = () => {
       </Head>
       {
         // @ts-ignore
-        data.map((recipe) => <RecipeContainer data={recipe} key={recipe.id}/>)
+        recipes.map((recipe) => <RecipeContainer data={recipe} key={recipe.id}/>)
       }
     </div>
 

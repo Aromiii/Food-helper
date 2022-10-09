@@ -3,12 +3,12 @@ import {getAuth, signOut} from "firebase/auth";
 import {router} from "next/client";
 
 
-const ShoppingList = () => {
+const Profile = () => {
 
   const auth = getAuth();
   const signOutHandler = () => {
     signOut(auth).then(() => {
-      router.push("/")
+      router.replace("/")
     }).catch((error) => {
       console.log(error)
     });
@@ -26,4 +26,4 @@ const ShoppingList = () => {
 
   )
 }
-export default ShoppingList;
+export default Profile;
