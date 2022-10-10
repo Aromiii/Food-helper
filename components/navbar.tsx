@@ -1,6 +1,6 @@
 import React, {Component, useEffect, useState} from 'react';
 import Link from "next/link";
-import {IoFastFoodOutline} from "react-icons/io5";
+import {IoAdd, IoAlarm, IoFastFoodOutline} from "react-icons/io5";
 import {CgProfile} from "react-icons/cg";
 import {FaGalacticRepublic} from "react-icons/fa";
 import {signInWithGoogle} from "../config/firebase";
@@ -25,9 +25,14 @@ const NavBar = () => {
           <FaGalacticRepublic size="35"/>
         </Link>
       </li>
-      <li className="navbarListItem m-auto">
+      <li className="navbarListItem">
         <Link href="/recipes">
           <IoFastFoodOutline size="35"/>
+        </Link>
+      </li>
+      <li className="navbarListItem">
+        <Link href="/recipes/addnew">
+          <IoAdd size="35"/>
         </Link>
       </li>
       <li className="navbarListItem">
