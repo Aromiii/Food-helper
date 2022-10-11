@@ -13,9 +13,9 @@ const Profile = () => {
       console.log(error)
     });
   }
-  console.log(auth)
+
   return (
-    <div className="flex place-items-center place-content-center h-[calc(100vh-4rem)]">
+    <main className="flex place-items-center place-content-center h-[calc(100vh-4rem)]">
       <Head>
         <title>{auth.currentUser?.displayName}'s profile</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
@@ -23,7 +23,7 @@ const Profile = () => {
       <button onClick={signOutHandler}
               className="text-3xl bg-red-700 p-3 rounded-3xl text-white border-4 border-black">Sign out
       </button>
-    </div>
+    </main>
 
   )
 }
