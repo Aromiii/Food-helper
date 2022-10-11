@@ -11,7 +11,7 @@ const RecipeContainer = (props: { data: { image: string; name: string; desc: str
   return (
     <Link href={"/recipes/" + props.data.id}>
       <div className="recipeContainer">
-        <img src={props.data.image} className="recipeContainerImage" alt="picture of food"/>
+        <img src={props.data.image} className="recipeContainerImage"/>
         <div className="p-2">
           <h1>{props.data.name}</h1>
           <p>{props.data.desc}</p>
@@ -35,7 +35,6 @@ const Recipes = () => {
         snapshot.docs.forEach((doc) => {
           setRecipes(recipes => [...recipes, { ...doc.data(), id: doc.id }])
         })
-        console.log(recipes)
       }).catch(error => {
       console.log(error.message)
     })
