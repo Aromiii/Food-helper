@@ -19,42 +19,44 @@ const NavBar = () => {
   });
 
   return (
-    <ul className="navbar_bg">
-      <li className="navbarListItem">
-        <Link href="/" passHref>
-          <a>
-            <FaGalacticRepublic size="35"/>
-          </a>
-        </Link>
-      </li>
-      <li className="navbarListItem">
-        <Link href="/recipes" passHref>
-          <a>
-            <IoFastFoodOutline size="35"/>
-          </a>
-        </Link>
-      </li>
-      <li className="navbarListItem">
-        <Link href="/recipes/addnew" passHref>
-          <a>
-            <IoAdd size="35"/>
-          </a>
-        </Link>
-      </li>
-      <li className="navbarListItem">
-        {profilePic === null ? (
-          <button type="button" onClick={signInWithGoogle}>
-            <CgProfile size="35"/>
-          </button>
-        ) : (
-          <Link href="/profile" passHref>
-            <a>
-              <img src={localStorage.getItem("profilePic")!} className="rounded-3xl"/>
-            </a>
-          </Link>
-        )}
-      </li>
-    </ul>
+      <nav>
+        <ul className="navbar_bg">
+          <li className="navbarListItem">
+            <Link href="/" passHref>
+              <a>
+                <FaGalacticRepublic size="35"/>
+              </a>
+            </Link>
+          </li>
+          <li className="navbarListItem">
+            <Link href="/recipes" passHref>
+              <a>
+                <IoFastFoodOutline size="35"/>
+              </a>
+            </Link>
+          </li>
+          <li className="navbarListItem">
+            <Link href="/recipes/addnew" passHref>
+              <a>
+                <IoAdd size="35"/>
+              </a>
+            </Link>
+          </li>
+          <li className="navbarListItem">
+            {profilePic === null ? (
+                <button type="button" onClick={signInWithGoogle}>
+                  <CgProfile size="35"/>
+                </button>
+            ) : (
+                <Link href="/profile" passHref>
+                  <a>
+                    <img src={localStorage.getItem("profilePic")!} className="rounded-3xl"/>
+                  </a>
+                </Link>
+            )}
+          </li>
+        </ul>
+      </nav>
   )
 }
 export default NavBar;

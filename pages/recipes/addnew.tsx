@@ -46,7 +46,7 @@ const AddNew = () => {
   }
 
   return (
-    <div className="flex place-items-center flex-col m-5">
+    <main className="flex place-items-center flex-col m-5">
       <Head>
         <title>Add new recipe</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
@@ -54,7 +54,7 @@ const AddNew = () => {
       <h1>
         Add new recipe
       </h1>
-      <form onSubmit={handleSubmit} className="flex flex-col w-[50%]">
+      <form onSubmit={handleSubmit} className="flex flex-col w-[50%] min-w-[300px]">
         <label htmlFor="name">Name:</label>
         <input type="text" name="name" required onChange={handleNameChange}
                className="bg-gray-200 rounded-2xl p-1"/>
@@ -71,11 +71,11 @@ const AddNew = () => {
         <input type="text" name="image" onChange={handleImageChance}
                className="bg-gray-200 rounded-2xl p-1"/>
         <div className="flex place-content-center">
-          <input type="submit" value="kissa" className="bg-green-400 m-5 w-40 h-12 rounded-full text-lg"/>
+          <input type="submit" value="Create new recipe" className="bg-green-400 m-5 w-40 h-12 rounded-full text-lg"/>
         </div>
       </form>
 
-    </div>
+    </main>
 
   )
 }
