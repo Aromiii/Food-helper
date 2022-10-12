@@ -24,18 +24,7 @@ const RecipeSiteBody = (props: { data: { image: string; name: string; recipe: st
 
 const Recipe = () => {
   const router = useRouter()
-
-  const [data, setData] = useState({"image": "", "name": "Error Data could not be retrieved", "recipe": "", "desc": ""})
-
-  const getRecipe = () => {
-    //TODO
-    axios.get("/api/recipes/---placeholder---/recipe/" + router.query.recipeId)
-      .then((res) => {
-        setData(res.data);
-      })
-  }
-
-  useEffect(() => getRecipe(), [])
+  const [data, setData] = useState({"image": "https://i.stack.imgur.com/6M513.png", "name": "Error: Data could not be retrieved from the database", "recipe": "Error", "desc": "Error"})
 
   return (
     <div>
