@@ -12,8 +12,7 @@ const AddNew = () => {
 
   const colRef = collection(db, 'recipes')
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
+  const handleSubmit = () => {
     console.log({
       name: name,
       desc: desc,
