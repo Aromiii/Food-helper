@@ -43,7 +43,6 @@ const Recipe = () => {
         setName(data.name)
         setRecipe(data.recipe)
       }
-      console.log(doc.data(), doc.id)
     }).catch((error) => {
       alert(error)
     })

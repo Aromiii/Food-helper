@@ -27,6 +27,7 @@ const AddNew = () => {
       location.replace("/recipes")
     }).catch((error) => {
       console.log(error)
+      alert(error)
     })
   }
 
