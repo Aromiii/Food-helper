@@ -2,7 +2,6 @@ import Head from "next/head";
 import {useState} from "react";
 import {addDoc, collection} from "@firebase/firestore";
 import {db} from "../../config/firebase";
-import {router} from "next/client";
 
 const AddNew = () => {
   const [name, setName] = useState("")
@@ -25,7 +24,7 @@ const AddNew = () => {
       recipe: recipe,
       image: imageLink
     }).then(() => {
-      router.push("/recipes")
+      location.replace("/recipes")
     }).catch((error) => {
       console.log(error)
     })

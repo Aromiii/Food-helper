@@ -1,8 +1,6 @@
 import Head from "next/head";
 import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
-import axios from "axios";
-import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {useState} from "react";
 
 
 const RecipeSiteBody = (props: { data: { image: string; name: string; recipe: string; desc: string } }) => {

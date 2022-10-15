@@ -1,14 +1,14 @@
 import Head from "next/head";
 import {getAuth, signOut} from "firebase/auth";
-import {router} from "next/client";
-
 
 const Profile = () => {
 
   const auth = getAuth();
+  console.log(auth)
+
   const signOutHandler = () => {
     signOut(auth).then(() => {
-      router.replace("/")
+      location.replace("/")
     }).catch((error) => {
       console.log(error)
     });

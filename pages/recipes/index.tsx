@@ -1,15 +1,13 @@
 import Head from "next/head";
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 import Link from "next/link";
 import {collection, getDocs} from "@firebase/firestore";
 import {db} from '../../config/firebase'
-import {any} from "prop-types";
 
 const RecipeContainer = (props: { data: { image: string; name: string; desc: string; id: string } }) => {
 
   return (
-      <Link href={"/recipes/" + props.data.id}>
+      <Link href={"/recipes/recipe/" + props.data.id}>
         <li className="recipeContainer">
           <img src={props.data.image} className="recipeContainerImage"/>
           <div className="p-2">
@@ -20,7 +18,6 @@ const RecipeContainer = (props: { data: { image: string; name: string; desc: str
       </Link>
   );
 }
-
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([])
