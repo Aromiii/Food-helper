@@ -1,13 +1,14 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Link from "next/link";
-import {IoAdd, IoAlarm, IoFastFoodOutline} from "react-icons/io5";
+import {IoAdd, IoFastFoodOutline} from "react-icons/io5";
 import {CgProfile} from "react-icons/cg";
 import {FaGalacticRepublic} from "react-icons/fa";
 import {signInWithGoogle} from "../config/firebase";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {User} from "@firebase/auth-types";
 
 const NavBar = () => {
-  const [profilePic, setProfilePic] = useState(null)
+  const [profilePic, setProfilePic] = useState<string | null>(null)
 
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {

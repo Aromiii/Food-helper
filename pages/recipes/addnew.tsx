@@ -30,16 +30,16 @@ const AddNew = () => {
     })
   }
 
-  const handleNameChange = (event: any) => {
+  const handleNameChange = (event: { target: HTMLInputElement}) => {
     setName(event.target.value)
   }
-  const handleDescChange = (event: any) => {
+  const handleDescChange = (event: { target: HTMLInputElement}) => {
     setDesc(event.target.value)
   }
-  const handleRecipeChange = (event: any) => {
+  const handleRecipeChange = (event: { target: HTMLInputElement}) => {
     setRecipe(event.target.value)
   }
-  const handleImageChance = (event: any) => {
+  const handleImageChance = (event: { target: HTMLInputElement}) => {
     setImageLink(event.target.value)
   }
 

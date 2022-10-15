@@ -17,7 +17,7 @@ const Profile = () => {
   return (
     <main className="flex place-items-center place-content-center h-[calc(100vh-4rem)]">
       <Head>
-        <title>{auth.currentUser?.displayName}'s profile</title>
+        <title>{auth.currentUser?.displayName}´s profile</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
       </Head>
       <button onClick={signOutHandler}
