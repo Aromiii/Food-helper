@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "axios": "^0.27.2",
     "firebase": "^9.10.0",
     "next": "12.2.5",
     "nextjs-cors": "^2.1.1",
