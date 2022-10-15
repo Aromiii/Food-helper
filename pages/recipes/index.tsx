@@ -1,10 +1,10 @@
 import Head from "next/head";
 import React, {useEffect, useState} from "react";
 import Link from "next/link";
-import {collection, getDocs} from "@firebase/firestore";
+import {collection, DocumentData, getDocs} from "@firebase/firestore";
 import {db} from '../../config/firebase'
 
-const RecipeContainer = (props: { data: { image: string; name: string; desc: string; id: string } }) => {
+const RecipeContainer = (props: { data: DocumentData }) => {
 
   return (
       <Link href={"/recipes/recipe/" + props.data.id}>
@@ -20,7 +20,7 @@ const RecipeContainer = (props: { data: { image: string; name: string; desc: str
 }
 
 const Recipes = () => {
-  const [recipes, setRecipes] = useState([])
+  const [recipes, setRecipes] = useState<DocumentData[]>([])
 
   // Collection refs
   const colRef = collection(db, 'recipes')
@@ -46,8 +46,7 @@ const Recipes = () => {
           <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
         </Head>
         {
-          // @ts-ignore
-          recipes.map((recipe) => <RecipeContainer data={recipe} key={recipe.id}/>)
+          recipes.map((recipe: DocumentData) => <RecipeContainer data={recipe} key={recipe.id}/>)
         }
       </main>
 
