@@ -34,6 +34,7 @@ const Recipe = () => {
   const docRef = doc(db, "recipes", "" + router.query.recipeId)
 
   //TODO migrate to getServerSideProps to make flash go away
+
   useEffect(() => {
     getDoc(docRef).then((doc) => {
       const data = doc.data()
@@ -46,7 +47,7 @@ const Recipe = () => {
     }).catch((error) => {
       alert(error)
     })
-  }, [])
+  })
 
   const handleRemove = () => {
     deleteDoc(docRef)
