@@ -8,13 +8,13 @@ const RecipeContainer = (props: { data: DocumentData }) => {
 
   return (
       <Link href={"/recipes/recipe/" + props.data.id}>
-        <li className="recipeContainer">
+        <div className="recipeContainer">
           <img src={props.data.image} className="recipeContainerImage"/>
           <div className="p-2">
             <h1>{props.data.name}</h1>
             <p>{props.data.desc}</p>
           </div>
-        </li>
+        </div>
       </Link>
   );
 }
