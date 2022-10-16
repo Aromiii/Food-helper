@@ -12,35 +12,34 @@ const AddNew = () => {
   const colRef = collection(db, 'recipes')
 
   const handleSubmit = () => {
-    console.log({
-      name: name,
-      desc: desc,
-      recipe: recipe,
-      image: imageLink
-    })
-    addDoc(colRef, {
-      name: name,
-      desc: desc,
-      recipe: recipe,
-      image: imageLink
-    }).then(() => {
-      location.replace("/recipes")
-    }).catch((error) => {
-      console.log(error)
-      alert(error)
-    })
+    if (name != "" || recipe != "") {
+      addDoc(colRef, {
+        name: name,
+        desc: desc,
+        recipe: recipe,
+        image: imageLink
+      }).then(() => {
+        console.log("200")
+        location.replace("/recipes")
+      }).catch((error) => {
+        alert(error)
+      })
+    }
+    else {
+      alert("You need to fill Name and Recipe fields")
+    }
   }
 
-  const handleNameChange = (event: { target: HTMLInputElement}) => {
+  const handleNameChange = (event: { target: HTMLInputElement }) => {
     setName(event.target.value)
   }
-  const handleDescChange = (event: { target: HTMLInputElement}) => {
+  const handleDescChange = (event: { target: HTMLInputElement }) => {
     setDesc(event.target.value)
   }
-  const handleRecipeChange = (event: { target: HTMLInputElement}) => {
+  const handleRecipeChange = (event: { target: HTMLInputElement }) => {
     setRecipe(event.target.value)
   }
-  const handleImageChance = (event: { target: HTMLInputElement}) => {
+  const handleImageChance = (event: { target: HTMLInputElement }) => {
     setImageLink(event.target.value)
   }
 
@@ -53,7 +52,7 @@ const AddNew = () => {
       <h1>
         Add new recipe
       </h1>
-      <form onSubmit={handleSubmit} className="flex flex-col w-[50%] min-w-[300px]">
+      <div className="flex flex-col w-[50%] min-w-[300px]">
         <label htmlFor="name">Name:</label>
         <input type="text" name="name" required onChange={handleNameChange}
                className="bg-gray-200 rounded-2xl p-1"/>
@@ -70,10 +69,10 @@ const AddNew = () => {
         <input type="text" name="image" onChange={handleImageChance}
                className="bg-gray-200 rounded-2xl p-1"/>
         <div className="flex place-content-center">
-          <input type="submit" value="Create new recipe" className="bg-green-400 m-5 w-40 h-12 rounded-full text-lg"/>
+          <input onClick={handleSubmit} type="submit" value="Create new recipe"
+                 className="bg-green-400 m-5 w-40 h-12 rounded-full text-lg"/>
         </div>
-      </form>
-
+      </div>
     </main>
 
   )
