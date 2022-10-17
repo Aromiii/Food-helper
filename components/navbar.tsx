@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from "next/link";
 import {IoAdd, IoFastFoodOutline, IoFilterOutline} from "react-icons/io5";
 import {CgProfile} from "react-icons/cg";
@@ -7,32 +7,52 @@ import {signInWithGoogle} from "../config/firebase";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {useRouter} from "next/router";
 
+function Dropdown() {
+  //TODO when hovering on hamburger menu or the options menu shows otherwise not
+  return <div className="absolute top-14 left-3 bg-gray-500 p-2 border-2 rounded-lg border-gray-600">
+    <Link href="/">
+      <a>
+        <div className="flex gap-2">
+          <FaGalacticRepublic size="35"/>
+          <p>Main page</p>
+        </div>
+      </a>
+    </Link>
+    <Link href="/recipes">
+      <a>
+        <div className="flex gap-2">
+          <IoFastFoodOutline size="35"/>
+          <p>Recipes</p>
+        </div>
+      </a>
+    </Link>
+  </div>;
+}
+
 const NavBar = () => {
   const [profilePic, setProfilePic] = useState<string | null>(null)
+  const [recipeNav, setRecipeNav] = useState(false)
   const route = useRouter()
 
   const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setProfilePic(user.photoURL)
-    } else {
-      setProfilePic(null)
-    }
-  });
-  console.log(route.pathname)
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setProfilePic(user.photoURL)
+      } else {
+        setProfilePic(null)
+      }
+    })
+  }, [auth])
 
   return (
-
     <nav>
       {route.pathname == "/recipes" ? (
         <div className="text-3xl bg-gray-500 flex p-2 place-items-center gap-9 h-16">
-          <div className="navbarListItem">
-            <Link href="/" passHref>
-              <a>
-                <FaBars size="35"/>
-              </a>
-            </Link>
-          </div>
+          <button className="navbarListItem" onClick={() => setRecipeNav(!recipeNav)}>
+            <FaBars size="35"/>
+            {recipeNav && <Dropdown/>}
+          </button>
           <div className="mx-auto flex">
             <IoFilterOutline size="35"/>
             <input type="text"
