@@ -22,17 +22,7 @@ const NavBar = () => {
   console.log(route.pathname)
 
   return (
-
       <nav>
-        {route.pathname == "/recipes" ? (
-        <div className="navbar_bg">
-          <Link href="/" passHref>
-            <a>
-              To front page
-            </a>
-          </Link>
-        </div>
-        ) : (
           <ul className="navbar_bg">
             <li className="navbarListItem">
               <Link href="/" passHref>
@@ -69,7 +59,6 @@ const NavBar = () => {
               )}
             </li>
           </ul>
-        )}
       </nav>
   )
 }
