@@ -13,13 +13,8 @@
 }
 
 @layer components {
-    .navbar_bg {
-        @apply text-3xl bg-gray-600 flex p-2 list-none
-        place-content-center place-items-center gap-9 h-16
-    }
-
     .recipeContainer {
-        @apply bg-gray-600 m-2 rounded-2xl h-96 object-cover overflow-hidden
+        @apply bg-gray-500 m-2 rounded-2xl h-96 object-cover overflow-hidden
     }
 
     .recipeContainerImage {
@@ -27,7 +22,7 @@
     }
 
     .navbarListItem {
-        @apply rounded-3xl bg-gray-400 w-12 h-12 justify-center place-items-center flex
+        @apply rounded-3xl w-12 h-12 justify-center place-items-center flex
     }
 }
 
