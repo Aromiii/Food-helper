@@ -5,10 +5,11 @@ import {CgProfile} from "react-icons/cg";
 import {FaGalacticRepublic} from "react-icons/fa";
 import {signInWithGoogle} from "../config/firebase";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
-import {User} from "@firebase/auth-types";
+import {useRouter} from "next/router";
 
 const NavBar = () => {
   const [profilePic, setProfilePic] = useState<string | null>(null)
+  const route = useRouter()
 
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
@@ -18,45 +19,57 @@ const NavBar = () => {
       setProfilePic(null)
     }
   });
+  console.log(route.pathname)
 
   return (
+
       <nav>
-        <ul className="navbar_bg">
-          <li className="navbarListItem">
-            <Link href="/" passHref>
-              <a>
-                <FaGalacticRepublic size="35"/>
-              </a>
-            </Link>
-          </li>
-          <li className="navbarListItem">
-            <Link href="/recipes" passHref>
-              <a>
-                <IoFastFoodOutline size="35"/>
-              </a>
-            </Link>
-          </li>
-          <li className="navbarListItem">
-            <Link href="/recipes/addnew" passHref>
-              <a>
-                <IoAdd size="35"/>
-              </a>
-            </Link>
-          </li>
-          <li className="navbarListItem">
-            {profilePic === null ? (
+        {route.pathname == "/recipes" ? (
+        <div className="navbar_bg">
+          <Link href="/" passHref>
+            <a>
+              To front page
+            </a>
+          </Link>
+        </div>
+        ) : (
+          <ul className="navbar_bg">
+            <li className="navbarListItem">
+              <Link href="/" passHref>
+                <a>
+                  <FaGalacticRepublic size="35"/>
+                </a>
+              </Link>
+            </li>
+            <li className="navbarListItem">
+              <Link href="/recipes" passHref>
+                <a>
+                  <IoFastFoodOutline size="35"/>
+                </a>
+              </Link>
+            </li>
+            <li className="navbarListItem">
+              <Link href="/recipes/addnew" passHref>
+                <a>
+                  <IoAdd size="35"/>
+                </a>
+              </Link>
+            </li>
+            <li className="navbarListItem">
+              {profilePic === null ? (
                 <button type="button" onClick={signInWithGoogle}>
                   <CgProfile size="35"/>
                 </button>
-            ) : (
+              ) : (
                 <Link href="/profile" passHref>
                   <a>
                     <img src={localStorage.getItem("profilePic")!} className="rounded-3xl"/>
                   </a>
                 </Link>
-            )}
-          </li>
-        </ul>
+              )}
+            </li>
+          </ul>
+        )}
       </nav>
   )
 }
