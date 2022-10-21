@@ -1,10 +1,9 @@
 import Head from "next/head";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Link from "next/link";
 import {collection, CollectionReference, DocumentData, getDocs} from "@firebase/firestore";
-import {db, auth, signInWithGoogle} from '../../config/firebase'
-import {onAuthStateChanged, User} from "firebase/auth";
-import {CgProfile} from "react-icons/cg";
+import {db, auth} from '../../config/firebase'
+import {getAuth, onAuthStateChanged} from "firebase/auth";
 
 const RecipeContainer = (props: { data: DocumentData }) => {
 
@@ -24,21 +23,26 @@ const RecipeContainer = (props: { data: DocumentData }) => {
 const Recipes = () => {
   //TODO migrate to getServerSideProps to make flash go away
   const [recipes, setRecipes] = useState<DocumentData[]>([])
+  let colRef: CollectionReference
 
   //TODO on refresh browser lost auth so its null and documents can't be gotten
   //Collection reference to recipes that current user owns
-  const colRef = collection(db, 'users', auth.currentUser?.uid, 'recipes')
+  if (auth.currentUser != null) {
+    colRef = collection(db, 'users', auth.currentUser?.uid, 'recipes')
+  }
 
   //Getting recipes
   useEffect(() => {
-    getDocs(colRef)
-      .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          setRecipes(recipes => [...recipes, {...doc.data(), id: doc.id}])
-        })
-      }).catch(error => {
-      console.log(error.message)
-    })
+    if (auth.currentUser != null) {
+      getDocs(colRef)
+        .then((snapshot) => {
+          snapshot.docs.forEach((doc) => {
+            setRecipes(recipes => [...recipes, {...doc.data(), id: doc.id}])
+          })
+        }).catch(error => {
+        console.log(error.message)
+      })
+    }
   }, [])
 
   return (
@@ -48,11 +52,22 @@ const Recipes = () => {
         <title>Recipes</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
       </Head>
+      {recipes.length == 0 ? (
+        <div className="h-[calc(100vh-4rem)] place-content-center place-items-center flex">
+          <Link href="/recipes/addnew">
+            <h1 className="text-center">
+              Create your first recipe by clicking here
+            </h1>
+          </Link>
+        </div>
+      ) : (
+        <div>
           {
             recipes.map((recipe: DocumentData) => <RecipeContainer data={recipe} key={recipe.id}/>)
           }
+        </div>
+      )}
     </main>
-
   )
 }
 export default Recipes;

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import {useState} from "react";
-import {addDoc, collection} from "@firebase/firestore";
+import {addDoc, collection, CollectionReference} from "@firebase/firestore";
 import {auth, db} from "../../config/firebase";
 
 const AddNew = () => {
@@ -10,7 +10,11 @@ const AddNew = () => {
   const [recipe, setRecipe] = useState("")
   const [imageLink, setImageLink] = useState("")
 
-  const colRef = collection(db, 'users', auth.currentUser?.uid, 'recipes')
+  let colRef: CollectionReference
+  if (auth.currentUser != null) {
+    colRef = collection(db, 'users', auth.currentUser?.uid, 'recipes')
+  }
+
 
   const handleSubmit = () => {
     if (name != "" || recipe != "") {

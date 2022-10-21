@@ -1,7 +1,7 @@
 import Head from "next/head";
 import {useRouter} from "next/router";
 import {auth, db} from "../../../config/firebase";
-import {getDoc, doc, deleteDoc, DocumentData} from "@firebase/firestore";
+import {getDoc, doc, deleteDoc, DocumentData, collection, DocumentReference} from "@firebase/firestore";
 import {useEffect, useState} from "react";
 
 const RecipeSiteBody = (props: {image: string, name: string, desc: string, recipe: string}) => {
@@ -32,22 +32,31 @@ const Recipe = () => {
 
   const router = useRouter()
 
-  const docRef = doc(db, 'users', auth.currentUser?.uid, 'recipes', "" + router.query.recipeId)
+  let docRef: DocumentReference
+  if (auth.currentUser != null) {
+    docRef = doc(db, 'users', auth.currentUser?.uid, 'recipes', "" + router.query.recipeId)
+  }
+
 
   //TODO migrate to getServerSideProps to make flash go away
 
   useEffect(() => {
-    getDoc(docRef).then((doc) => {
-      const data = doc.data()
-      if (data != undefined) {
-        setImage(data.image)
-        setDesc(data.desc)
-        setName(data.name)
-        setRecipe(data.recipe)
-      }
-    }).catch((error) => {
-      alert(error)
-    })
+    if (auth.currentUser != null) {
+      getDoc(docRef).then((doc) => {
+        const data = doc.data()
+        if (data != undefined) {
+          setImage(data.image)
+          setDesc(data.desc)
+          setName(data.name)
+          setRecipe(data.recipe)
+        }
+      }).catch((error) => {
+        alert(error)
+      })
+    } else {
+      alert("Error Try to go to another page and come back")
+    }
+
   })
 
   const handleRemove = () => {
