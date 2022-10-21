@@ -1,9 +1,10 @@
 import Head from "next/head";
 import React, {useEffect, useState} from "react";
 import Link from "next/link";
-import {collection, DocumentData, getDocs} from "@firebase/firestore";
-import {db, auth} from '../../config/firebase'
+import {collection, CollectionReference, DocumentData, getDocs} from "@firebase/firestore";
+import {db, auth, signInWithGoogle} from '../../config/firebase'
 import {onAuthStateChanged, User} from "firebase/auth";
+import {CgProfile} from "react-icons/cg";
 
 const RecipeContainer = (props: { data: DocumentData }) => {
 
@@ -20,15 +21,15 @@ const RecipeContainer = (props: { data: DocumentData }) => {
   );
 }
 
-
 const Recipes = () => {
+  //TODO migrate to getServerSideProps to make flash go away
   const [recipes, setRecipes] = useState<DocumentData[]>([])
 
-  //TODO on refresh browser losts auth so its null and documents can't be
+  //TODO on refresh browser lost auth so its null and documents can't be gotten
   //Collection reference to recipes that current user owns
-  const colRef = collection(db, 'users', auth.currentUser.uid, 'recipes')
+  const colRef = collection(db, 'users', auth.currentUser?.uid, 'recipes')
 
-  // Get collection data
+  //Getting recipes
   useEffect(() => {
     getDocs(colRef)
       .then((snapshot) => {
@@ -47,9 +48,9 @@ const Recipes = () => {
         <title>Recipes</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
       </Head>
-      {
-        recipes.map((recipe: DocumentData) => <RecipeContainer data={recipe} key={recipe.id}/>)
-      }
+          {
+            recipes.map((recipe: DocumentData) => <RecipeContainer data={recipe} key={recipe.id}/>)
+          }
     </main>
 
   )

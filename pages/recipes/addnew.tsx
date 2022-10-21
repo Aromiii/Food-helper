@@ -1,15 +1,16 @@
 import Head from "next/head";
 import {useState} from "react";
 import {addDoc, collection} from "@firebase/firestore";
-import {db} from "../../config/firebase";
+import {auth, db} from "../../config/firebase";
 
 const AddNew = () => {
+  //TODO on refresh browser lost auth so its null
   const [name, setName] = useState("")
   const [desc, setDesc] = useState("")
   const [recipe, setRecipe] = useState("")
   const [imageLink, setImageLink] = useState("")
 
-  const colRef = collection(db, 'recipes')
+  const colRef = collection(db, 'users', auth.currentUser?.uid, 'recipes')
 
   const handleSubmit = () => {
     if (name != "" || recipe != "") {

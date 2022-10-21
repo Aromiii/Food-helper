@@ -1,6 +1,6 @@
 import Head from "next/head";
 import {useRouter} from "next/router";
-import {db} from "../../../config/firebase";
+import {auth, db} from "../../../config/firebase";
 import {getDoc, doc, deleteDoc, DocumentData} from "@firebase/firestore";
 import {useEffect, useState} from "react";
 
@@ -24,6 +24,7 @@ const RecipeSiteBody = (props: {image: string, name: string, desc: string, recip
 }
 
 const Recipe = () => {
+  //TODO on refresh browser lost auth so its null
   const [image, setImage] = useState("Error")
   const [name, setName] = useState("Error")
   const [desc, setDesc] = useState("Error")
@@ -31,7 +32,7 @@ const Recipe = () => {
 
   const router = useRouter()
 
-  const docRef = doc(db, "recipes", "" + router.query.recipeId)
+  const docRef = doc(db, 'users', auth.currentUser?.uid, 'recipes', "" + router.query.recipeId)
 
   //TODO migrate to getServerSideProps to make flash go away
 
