@@ -73,9 +73,7 @@ const NavBar = () => {
           {route.pathname == "/recipes" ? (
             <RecipeSearchBar/>
           ) : (
-            <div>
-              Main Page
-            </div>
+            <div className="font-bold">Food-helper</div>
           )}
         </li>
         <li className="navbarListItem">

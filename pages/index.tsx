@@ -10,9 +10,6 @@ const Home: NextPage = () => {
         <title>Food-helper</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
       </Head>
-      <h1>
-        Food-helper
-      </h1>
     </main>
   )
 }
