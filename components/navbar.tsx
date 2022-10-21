@@ -7,12 +7,13 @@ import {signInWithGoogle} from "../config/firebase";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {useRouter} from "next/router";
 
-function Dropdown() {
+const Dropdown = () => {
   //TODO when hovering on hamburger menu or the options menu shows otherwise not
+  //TODO rewrite as sliding bar that goes top of navbar
   return <div className="absolute top-14 left-3 bg-gray-500 p-2 border-2 rounded-lg border-gray-600">
     <Link href="/">
       <a>
-        <div className="flex gap-2">
+        <div className="flex gap-2 p-1">
           <FaGalacticRepublic size="35"/>
           <p>Main page</p>
         </div>
@@ -20,10 +21,24 @@ function Dropdown() {
     </Link>
     <Link href="/recipes">
       <a>
-        <div className="flex gap-2">
+        <div className="flex gap-2 p-1">
           <IoFastFoodOutline size="35"/>
           <p>Recipes</p>
         </div>
+      </a>
+    </Link>
+  </div>;
+}
+
+const RecipeSearchBar = () => {
+  return <div className="mx-auto flex">
+    <IoFilterOutline size="35"/>
+    <input type="text"
+           placeholder=" Search recipes..."
+           className="text-xl rounded-3xl bg-gray-300 text p-1 mx-3"/>
+    <Link href="/recipes/addnew" passHref>
+      <a>
+        <IoAdd size="35"/>
       </a>
     </Link>
   </div>;
@@ -47,83 +62,38 @@ const NavBar = () => {
 
   return (
     <nav>
-      {route.pathname == "/recipes" ? (
-        <div className="text-3xl bg-gray-500 flex p-2 place-items-center gap-9 h-16">
+      <ul className="text-3xl bg-gray-500 flex p-2 list-none place-items-center gap-9 h-16">
+        <li className="navbarListItem">
           <button className="navbarListItem" onClick={() => setRecipeNav(!recipeNav)}>
             <FaBars size="35"/>
             {recipeNav && <Dropdown/>}
           </button>
-          <div className="mx-auto flex">
-            <IoFilterOutline size="35"/>
-            <input type="text"
-                   placeholder=" Search recipes..."
-                   className="text-xl rounded-3xl bg-gray-300 text p-1 mx-3"/>
-            <Link href="/recipes/addnew" passHref>
+        </li>
+        <li className="mx-auto flex">
+          {route.pathname == "/recipes" ? (
+            <RecipeSearchBar/>
+          ) : (
+            <div>
+              Main Page
+            </div>
+          )}
+        </li>
+        <li className="navbarListItem">
+          {profilePic === null ? (
+            <button type="button" onClick={signInWithGoogle}>
+              <CgProfile size="35"/>
+            </button>
+          ) : (
+            <Link href="/profile" passHref>
               <a>
-                <IoAdd size="35"/>
+                <img src={localStorage.getItem("profilePic")!} className="rounded-3xl"/>
               </a>
             </Link>
-          </div>
-          <div className="navbarListItem">
-            {profilePic === null ? (
-              <button type="button" onClick={signInWithGoogle}>
-                <CgProfile size="35"/>
-              </button>
-            ) : (
-              <Link href="/profile" passHref>
-                <a>
-                  <img src={localStorage.getItem("profilePic")!} className="rounded-3xl"/>
-                </a>
-              </Link>
-            )}
-          </div>
-        </div>
-      ) : (
-        <ul className="text-3xl bg-gray-500 flex p-2 list-none
-        place-content-center place-items-center gap-9 h-16">
-          <li className="navbarListItem">
-            <Link href="/" passHref>
-              <a>
-                <FaGalacticRepublic size="35"/>
-              </a>
-            </Link>
-          </li>
-          <li className="navbarListItem mx-auto">
-            <Link href="/recipes" passHref>
-              <a>
-                <IoFastFoodOutline size="35"/>
-              </a>
-            </Link>
-          </li>
-          <li className="navbarListItem">
-            {profilePic === null ? (
-              <button type="button" onClick={signInWithGoogle}>
-                <CgProfile size="35"/>
-              </button>
-            ) : (
-              <Link href="/profile" passHref>
-                <a>
-                  <img src={localStorage.getItem("profilePic")!} className="rounded-3xl"/>
-                </a>
-              </Link>
-            )}
-          </li>
-        </ul>
-      )}
+          )}
+        </li>
+      </ul>
+
     </nav>
   )
 }
 export default NavBar;
-
-/*
-
-<li className="navbarListItem">
-  <Link href="/menu">
-    me
-  </Link>
-</li>
-<li className="navbarListItem">
-  <Link href="/shopping-list">
-    sl
-  </Link>
-</li>*/
