@@ -1,6 +1,6 @@
 {
-  "name": "food-helper-next",
-  "version": "0.1.0",
+  "name": "food-helper",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
