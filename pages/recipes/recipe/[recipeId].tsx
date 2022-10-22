@@ -1,7 +1,7 @@
 import Head from "next/head";
 import {useRouter} from "next/router";
 import {auth, db} from "../../../config/firebase";
-import {getDoc, doc, deleteDoc, DocumentReference} from "@firebase/firestore";
+import {getDoc, doc, deleteDoc, DocumentReference, DocumentData} from "@firebase/firestore";
 import {useState} from "react";
 import {onAuthStateChanged} from "firebase/auth";
 
@@ -37,7 +37,7 @@ const Recipe = () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       //Document reference to recipes that current user owns
-      docRef = doc(db, 'users', auth.currentUser?.uid, 'recipes', "" + router.query.recipeId)
+      docRef = doc(db, 'users', user.uid, 'recipes', "" + router.query.recipeId)
 
       //Getting recipes from the database
       getDoc(docRef).then((doc) => {

@@ -1,7 +1,8 @@
 import Head from "next/head";
 import {useState} from "react";
-import {addDoc, collection, CollectionReference} from "@firebase/firestore";
+import {addDoc, collection, CollectionReference, getDocs} from "@firebase/firestore";
 import {auth, db} from "../../config/firebase";
+import {onAuthStateChanged} from "firebase/auth";
 
 const AddNew = () => {
   //TODO on refresh browser lost auth so its null
@@ -11,9 +12,16 @@ const AddNew = () => {
   const [imageLink, setImageLink] = useState("")
 
   let colRef: CollectionReference
-  if (auth.currentUser != null) {
-    colRef = collection(db, 'users', auth.currentUser?.uid, 'recipes')
-  }
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      //Collection reference to recipes that current user owns
+      const colRef = collection(db, 'users', user.uid, 'recipes')
+
+    } else {
+      alert("You need to sign in to create your first recipe. Sign in by clicking profile icon on the right corner")
+      location.replace("/recipes")
+    }
+  })
 
 
   const handleSubmit = () => {
