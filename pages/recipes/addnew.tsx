@@ -19,7 +19,6 @@ const AddNew = () => {
 
     } else {
       console.log("Sign in required for adding new recipe")
-      location.replace("/recipes")
     }
   })
 

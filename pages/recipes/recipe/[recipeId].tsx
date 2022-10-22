@@ -54,8 +54,6 @@ const Recipe = () => {
         console.error(error)
         alert(error)
       })
-    } else {
-      alert("Error Try to go to another page and come back")
     }
   })
 
