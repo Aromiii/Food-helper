@@ -1,8 +1,9 @@
 import Head from "next/head";
 import {useRouter} from "next/router";
 import {auth, db} from "../../../config/firebase";
-import {getDoc, doc, deleteDoc, DocumentData, collection, DocumentReference} from "@firebase/firestore";
-import {useEffect, useState} from "react";
+import {getDoc, doc, deleteDoc, DocumentReference} from "@firebase/firestore";
+import {useState} from "react";
+import {onAuthStateChanged} from "firebase/auth";
 
 const RecipeSiteBody = (props: {image: string, name: string, desc: string, recipe: string}) => {
   return <>
@@ -29,19 +30,16 @@ const Recipe = () => {
   const [name, setName] = useState("Error")
   const [desc, setDesc] = useState("Error")
   const [recipe, setRecipe] = useState("Error")
-
   const router = useRouter()
-
   let docRef: DocumentReference
-  if (auth.currentUser != null) {
-    docRef = doc(db, 'users', auth.currentUser?.uid, 'recipes', "" + router.query.recipeId)
-  }
-
 
   //TODO migrate to getServerSideProps to make flash go away
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      //Document reference to recipes that current user owns
+      docRef = doc(db, 'users', auth.currentUser?.uid, 'recipes', "" + router.query.recipeId)
 
-  useEffect(() => {
-    if (auth.currentUser != null) {
+      //Getting recipes from the database
       getDoc(docRef).then((doc) => {
         const data = doc.data()
         if (data != undefined) {
@@ -49,14 +47,16 @@ const Recipe = () => {
           setDesc(data.desc)
           setName(data.name)
           setRecipe(data.recipe)
+        } else {
+          console.error("Data was undefined")
         }
       }).catch((error) => {
+        console.error(error)
         alert(error)
       })
     } else {
       alert("Error Try to go to another page and come back")
     }
-
   })
 
   const handleRemove = () => {

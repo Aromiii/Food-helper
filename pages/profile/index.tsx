@@ -1,6 +1,10 @@
 import Head from "next/head";
-import {signOut} from "firebase/auth";
-import {auth} from "../../config/firebase";
+import {onAuthStateChanged, signOut} from "firebase/auth";
+import {auth, db} from "../../config/firebase";
+import {collection, getDocs} from "@firebase/firestore";
+import {useState} from "react";
+
+
 
 const Profile = () => {
   const signOutHandler = () => {

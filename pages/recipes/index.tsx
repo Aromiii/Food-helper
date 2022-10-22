@@ -1,9 +1,9 @@
 import Head from "next/head";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useState} from "react";
 import Link from "next/link";
-import {collection, CollectionReference, DocumentData, getDocs} from "@firebase/firestore";
+import {collection, DocumentData, getDocs} from "@firebase/firestore";
 import {db, auth} from '../../config/firebase'
-import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {onAuthStateChanged} from "firebase/auth";
 
 const RecipeContainer = (props: { data: DocumentData }) => {
 
@@ -23,19 +23,16 @@ const RecipeContainer = (props: { data: DocumentData }) => {
 const Recipes = () => {
   //TODO migrate to getServerSideProps to make flash go away
   const [recipes, setRecipes] = useState<DocumentData[]>([])
-  let colRef: CollectionReference
 
-  //TODO on refresh browser lost auth so its null and documents can't be gotten
-  //Collection reference to recipes that current user owns
-  if (auth.currentUser != null) {
-    colRef = collection(db, 'users', auth.currentUser?.uid, 'recipes')
-  }
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      //Collection reference to recipes that current user owns
+      const colRef = collection(db, 'users', user.uid, 'recipes')
 
-  //Getting recipes
-  useEffect(() => {
-    if (auth.currentUser != null) {
+      //Getting recipes from the database
       getDocs(colRef)
         .then((snapshot) => {
+          setRecipes([])
           snapshot.docs.forEach((doc) => {
             setRecipes(recipes => [...recipes, {...doc.data(), id: doc.id}])
           })
@@ -43,7 +40,7 @@ const Recipes = () => {
         console.log(error.message)
       })
     }
-  }, [])
+  })
 
   return (
     <main className="grid grid-cols-recipe3 justify-center place-content-start
@@ -52,7 +49,7 @@ const Recipes = () => {
         <title>Recipes</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
       </Head>
-      {recipes.length == 0 ? (
+      {auth.currentUser === null ? (
         <div className="h-[calc(100vh-4rem)] place-content-center place-items-center flex">
           <Link href="/recipes/addnew">
             <h1 className="text-center">
