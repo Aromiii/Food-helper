@@ -10,12 +10,12 @@ const AddNew = () => {
   const [desc, setDesc] = useState("")
   const [recipe, setRecipe] = useState("")
   const [imageLink, setImageLink] = useState("")
-
   let colRef: CollectionReference
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
       //Collection reference to recipes that current user owns
-      const colRef = collection(db, 'users', user.uid, 'recipes')
+      colRef = collection(db, 'users', user.uid, 'recipes')
 
     } else {
       console.log("Sign in required for adding new recipe")

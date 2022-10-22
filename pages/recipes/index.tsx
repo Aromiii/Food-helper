@@ -49,7 +49,7 @@ const Recipes = () => {
         <title>Recipes</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
       </Head>
-      {auth.currentUser === null ? (
+      {recipes.length == 0 ? (
         <div className="h-[calc(100vh-4rem)] place-content-center place-items-center flex">
           <Link href="/recipes/addnew">
             <h1 className="text-center">
