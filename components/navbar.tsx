@@ -32,13 +32,13 @@ const Dropdown = () => {
 
 const RecipeSearchBar = () => {
   return <div className="mx-auto flex">
-    <IoFilterOutline size="35"/>
+    <IoFilterOutline/>
     <input type="text"
            placeholder=" Search recipes..."
-           className="text-xl rounded-3xl bg-gray-300 text p-1 mx-3"/>
+           className="text-xl rounded-3xl bg-gray-300 p-1 mx-3 w-[80%]"/>
     <Link href="/recipes/addnew" passHref>
       <a>
-        <IoAdd size="35"/>
+        <IoAdd/>
       </a>
     </Link>
   </div>;

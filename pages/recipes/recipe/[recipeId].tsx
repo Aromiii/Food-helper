@@ -1,8 +1,9 @@
 import Head from "next/head";
 import {useRouter} from "next/router";
-import {db} from "../../../config/firebase";
-import {getDoc, doc, deleteDoc, DocumentData} from "@firebase/firestore";
-import {useEffect, useState} from "react";
+import {auth, db} from "../../../config/firebase";
+import {getDoc, doc, deleteDoc, DocumentReference, DocumentData} from "@firebase/firestore";
+import {useState} from "react";
+import {onAuthStateChanged} from "firebase/auth";
 
 const RecipeSiteBody = (props: {image: string, name: string, desc: string, recipe: string}) => {
   return <>
@@ -24,29 +25,36 @@ const RecipeSiteBody = (props: {image: string, name: string, desc: string, recip
 }
 
 const Recipe = () => {
+  //TODO on refresh browser lost auth so its null
   const [image, setImage] = useState("Error")
   const [name, setName] = useState("Error")
   const [desc, setDesc] = useState("Error")
   const [recipe, setRecipe] = useState("Error")
-
   const router = useRouter()
-
-  const docRef = doc(db, "recipes", "" + router.query.recipeId)
+  let docRef: DocumentReference
 
   //TODO migrate to getServerSideProps to make flash go away
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      //Document reference to recipes that current user owns
+      docRef = doc(db, 'users', user.uid, 'recipes', "" + router.query.recipeId)
 
-  useEffect(() => {
-    getDoc(docRef).then((doc) => {
-      const data = doc.data()
-      if (data != undefined) {
-        setImage(data.image)
-        setDesc(data.desc)
-        setName(data.name)
-        setRecipe(data.recipe)
-      }
-    }).catch((error) => {
-      alert(error)
-    })
+      //Getting recipes from the database
+      getDoc(docRef).then((doc) => {
+        const data = doc.data()
+        if (data != undefined) {
+          setImage(data.image)
+          setDesc(data.desc)
+          setName(data.name)
+          setRecipe(data.recipe)
+        } else {
+          console.error("Data was undefined")
+        }
+      }).catch((error) => {
+        console.error(error)
+        alert(error)
+      })
+    }
   })
 
   const handleRemove = () => {

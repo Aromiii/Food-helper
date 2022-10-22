@@ -1,15 +1,27 @@
 import Head from "next/head";
 import {useState} from "react";
-import {addDoc, collection} from "@firebase/firestore";
-import {db} from "../../config/firebase";
+import {addDoc, collection, CollectionReference, getDocs} from "@firebase/firestore";
+import {auth, db} from "../../config/firebase";
+import {onAuthStateChanged} from "firebase/auth";
 
 const AddNew = () => {
+  //TODO on refresh browser lost auth so its null
   const [name, setName] = useState("")
   const [desc, setDesc] = useState("")
   const [recipe, setRecipe] = useState("")
   const [imageLink, setImageLink] = useState("")
 
-  const colRef = collection(db, 'recipes')
+  let colRef: CollectionReference
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      //Collection reference to recipes that current user owns
+      const colRef = collection(db, 'users', user.uid, 'recipes')
+
+    } else {
+      console.log("Sign in required for adding new recipe")
+    }
+  })
+
 
   const handleSubmit = () => {
     if (name != "" || recipe != "") {
