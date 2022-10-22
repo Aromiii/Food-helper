@@ -14,6 +14,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
+## Techstack
+- [Next.js](https://nextjs.org/) is used as front end framework
+- [Firebase](https://firebase.google.com/) (BaaS) as backend which includes authentication and database
+- [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) is used for hosting the project
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
