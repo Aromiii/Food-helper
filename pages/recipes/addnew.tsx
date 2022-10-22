@@ -1,8 +1,9 @@
 import Head from "next/head";
 import {useState} from "react";
-import {addDoc, collection, CollectionReference, getDocs} from "@firebase/firestore";
+import {addDoc, collection, CollectionReference} from "@firebase/firestore";
 import {auth, db} from "../../config/firebase";
 import {onAuthStateChanged} from "firebase/auth";
+import NewRecipeForm from "../../components/recipes/NewRecipeForm";
 
 const AddNew = () => {
   //TODO on refresh browser lost auth so its null
@@ -36,8 +37,7 @@ const AddNew = () => {
       }).catch((error) => {
         alert(error)
       })
-    }
-    else {
+    } else {
       alert("You need to fill Name and Recipe fields")
     }
   }
@@ -64,27 +64,9 @@ const AddNew = () => {
       <h1>
         Add new recipe
       </h1>
-      <div className="flex flex-col w-[50%] min-w-[300px]">
-        <label htmlFor="name">Name:</label>
-        <input type="text" name="name" required onChange={handleNameChange}
-               className="bg-gray-200 rounded-2xl p-1"/>
-
-        <label htmlFor="desc">Description:</label>
-        <input type="text" name="desc" onChange={handleDescChange}
-               className="bg-gray-200 rounded-2xl p-1"/>
-
-        <label htmlFor="recipe">Recipe:</label>
-        <input type="text" name="recipe" required onChange={handleRecipeChange}
-               className="bg-gray-200 rounded-2xl p-1"/>
-
-        <label htmlFor="image">Image link:</label>
-        <input type="text" name="image" onChange={handleImageChance}
-               className="bg-gray-200 rounded-2xl p-1"/>
-        <div className="flex place-content-center">
-          <input onClick={handleSubmit} type="submit" value="Create new recipe"
-                 className="bg-green-400 m-5 w-40 h-12 rounded-full text-lg"/>
-        </div>
-      </div>
+      <NewRecipeForm onChange={handleNameChange} onChange1={handleDescChange}
+                      onChange2={handleRecipeChange} onChange3={handleImageChance}
+                      onClick={handleSubmit}/>
     </main>
 
   )
