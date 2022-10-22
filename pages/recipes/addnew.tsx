@@ -18,7 +18,7 @@ const AddNew = () => {
       const colRef = collection(db, 'users', user.uid, 'recipes')
 
     } else {
-      alert("You need to sign in to create your first recipe. Sign in by clicking profile icon on the right corner")
+      console.log("Sign in required for adding new recipe")
       location.replace("/recipes")
     }
   })
