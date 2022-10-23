@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 const RecipeSearchBar = () => {
-  return <div className="mx-auto flex">
+  return <div className="mx-auto flex w-[50vw] place-content-center">
     <IoFilterOutline size="35"/>
     <input type="text"
            placeholder=" Search recipes..."
