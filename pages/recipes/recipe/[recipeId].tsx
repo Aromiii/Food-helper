@@ -13,6 +13,8 @@ const Recipe = () => {
   const [name, setName] = useState("Error")
   const [desc, setDesc] = useState("Error")
   const [recipe, setRecipe] = useState("Error")
+  const [ingredients, setIngredients] = useState([])
+  const [steps, setSteps] = useState([])
   const router = useRouter()
   let docRef: DocumentReference
 
@@ -30,6 +32,8 @@ const Recipe = () => {
           setDesc(data.desc)
           setName(data.name)
           setRecipe(data.recipe)
+          setIngredients(data.ingredients)
+          setSteps(data.steps)
         } else {
           console.error("Data was undefined")
         }
@@ -50,7 +54,11 @@ const Recipe = () => {
         <title>Recipe</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
       </Head>
-      <RecipeSiteBody src={image} name={name} desc={desc} recipe={recipe} onClick={handleDeleteDocument}/>
+      <RecipeSiteBody src={image} name={name}
+                      desc={desc} recipe={recipe}
+                      ingredients={ingredients}
+                      steps={steps}
+                      onClick={handleDeleteDocument}/>
     </div>
 
   )
