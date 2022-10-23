@@ -1,7 +1,7 @@
 import Head from "next/head";
 import {useRouter} from "next/router";
-import {auth, db} from "../../../config/firebase";
-import {getDoc, doc, deleteDoc, DocumentReference, DocumentData} from "@firebase/firestore";
+import {auth, db, deleteDocument} from "../../../config/firebase";
+import {getDoc, doc, DocumentReference} from "@firebase/firestore";
 import {useState} from "react";
 import {onAuthStateChanged} from "firebase/auth";
 
@@ -57,13 +57,8 @@ const Recipe = () => {
     }
   })
 
-  const handleRemove = () => {
-    deleteDoc(docRef)
-      .then(() => {
-        location.replace("/recipes")
-      }).catch((error) => {
-        console.log(error)
-    })
+  const handleDeleteDocument = () => {
+    deleteDocument(docRef, "/recipes")
   }
 
   return (
@@ -75,7 +70,7 @@ const Recipe = () => {
       <RecipeSiteBody image={image} recipe={recipe} desc={desc} name={name}/>
       <button
         className="bg-red-700 text-white border-black border-2 p-2 rounded-full m-3"
-        onClick={handleRemove}>
+        onClick={handleDeleteDocument}>
         Remove recipe
       </button>
     </div>

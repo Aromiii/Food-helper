@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+import {getAuth, GoogleAuthProvider, signInWithPopup, signOut} from 'firebase/auth';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import {deleteDoc, DocumentData, DocumentReference, getDocs, CollectionReference} from "@firebase/firestore";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
@@ -35,6 +36,38 @@ export const signInWithGoogle = () => {
     }
   }).catch((error) => {
     console.log(error)
+  })
+}
+
+// Sign out logic for all providers
+export const signOutHandler = () => {
+  signOut(auth).then(() => {
+    location.replace("/")
+  }).catch((error) => {
+    console.log(error)
+  });
+}
+
+// Logic to remove document from database
+export const deleteDocument = (docRef: DocumentReference, urlToFor: string) => {
+  deleteDoc(docRef)
+    .then(() => {
+      location.replace(urlToFor)
+    }).catch((error) => {
+    console.log(error)
+  })
+}
+
+// Logic to get all documents
+export const getDocuments = (colRef: CollectionReference, setDocuments: (value: (((prevState: DocumentData[]) => DocumentData[]) | DocumentData[])) => void) => {
+  getDocs(colRef)
+    .then((snapshot) => {
+      setDocuments([])
+      snapshot.docs.forEach((doc) => {
+        setDocuments(documents => [...documents, {...doc.data(), id: doc.id}])
+      })
+    }).catch(error => {
+    console.log(error.message)
   })
 }
 

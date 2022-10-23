@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React, {useState} from "react";
-import {collection, DocumentData, getDocs} from "@firebase/firestore";
-import {db, auth} from '../../config/firebase'
+import {collection, DocumentData} from "@firebase/firestore";
+import {db, auth, getDocuments} from '../../config/firebase'
 import {onAuthStateChanged} from "firebase/auth";
 import CreateNewRecipeText from "../../components/recipes/createNewRecipeText";
 import RecipeContainer from "../../components/recipes/RecipeContainer";
@@ -16,15 +16,7 @@ const Recipes = () => {
       const colRef = collection(db, 'users', user.uid, 'recipes')
 
       //Getting recipes from the database
-      getDocs(colRef)
-        .then((snapshot) => {
-          setRecipes([])
-          snapshot.docs.forEach((doc) => {
-            setRecipes(recipes => [...recipes, {...doc.data(), id: doc.id}])
-          })
-        }).catch(error => {
-        console.log(error.message)
-      })
+      getDocuments(colRef, setRecipes);
     }
   })
 

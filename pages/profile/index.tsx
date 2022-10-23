@@ -1,19 +1,8 @@
 import Head from "next/head";
-import {onAuthStateChanged, signOut} from "firebase/auth";
-import {auth, db} from "../../config/firebase";
-import {collection, getDocs} from "@firebase/firestore";
-import {useState} from "react";
-
-
+import {auth, signOutHandler} from "../../config/firebase";
 
 const Profile = () => {
-  const signOutHandler = () => {
-    signOut(auth).then(() => {
-      location.replace("/")
-    }).catch((error) => {
-      console.log(error)
-    });
-  }
+
 
   return (
     <main className="flex place-items-center place-content-center h-[calc(100vh-4rem)]">
