@@ -9,10 +9,11 @@ const AddNew = () => {
   //TODO on refresh browser lost auth so its null
   const [name, setName] = useState("")
   const [desc, setDesc] = useState("")
-  const [recipe, setRecipe] = useState("")
   const [imageLink, setImageLink] = useState("")
   const [ingredient, setIngredient] = useState("")
   const [step, setStep] = useState("")
+  const [ingredients, setIngredients] = useState<string[]>([])
+  const [steps, setSteps] = useState<string[]>([])
   let colRef: CollectionReference
 
   onAuthStateChanged(auth, (user) => {
@@ -27,7 +28,7 @@ const AddNew = () => {
 
 
   const handleSubmit = () => {
-    if (name != "" || recipe != "") {
+    if (name != "") {
       addDoc(colRef, {
         name: name,
         desc: desc,
@@ -39,7 +40,7 @@ const AddNew = () => {
         alert(error)
       })
     } else {
-      alert("You need to fill Name and Recipe fields")
+      alert("You need to fill the name field")
     }
   }
 
@@ -53,10 +54,22 @@ const AddNew = () => {
     setImageLink(event.target.value)
   }
   const handleIngredientChance = (event: { target: HTMLInputElement }) => {
-    setImageLink(event.target.value)
+    setIngredient(event.target.value)
+    console.log(ingredient)
   }
   const handleStepChance = (event: { target: HTMLInputElement }) => {
-    setImageLink(event.target.value)
+    setStep(event.target.value)
+    console.log(step)
+  }
+  const handleNewIngredient = () => {
+    console.log("Before: ", ingredients)
+    setIngredients(kissa => kissa.concat(ingredient))
+    console.log(ingredients)
+  }
+  const handleNewStep = () => {
+    console.log("Before: ", steps)
+    setSteps(kissa => kissa.concat(step))
+    console.log(steps)
   }
 
   return (
@@ -85,7 +98,7 @@ const AddNew = () => {
           <label htmlFor="Ingredients">Ingredients:</label>
           <input className="bg-gray-200 p-1 rounded-full w-full "
                  type="text" onChange={handleIngredientChance}/>
-          <button className="bg-green-400 rounded-full p-1 my-1 w-40">
+          <button className="bg-green-400 rounded-full p-1 my-1 w-40" onClick={handleNewIngredient}>
             Add new Ingredient
           </button>
         </div>
@@ -93,7 +106,8 @@ const AddNew = () => {
           <label htmlFor="desc">Steps:</label>
           <input className="bg-gray-200 p-1 rounded-full w-full "
                  type="text" onChange={handleStepChance}/>
-          <button className="bg-green-400 rounded-full p-1 my-1 w-40">
+          <button className="bg-green-400 rounded-full p-1 my-1 w-40"
+                  onClick={handleNewStep}>
             Add new step
           </button>
         </div>
