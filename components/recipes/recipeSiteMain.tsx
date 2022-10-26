@@ -13,7 +13,7 @@ const RecipeSiteMain = (props: { src: string, name: string,
       <p className="my-2">
         {props.desc}
       </p>
-      <div className="m-2 flex grid grid-cols-recipe2 gap-5">
+      <div className="m-2 grid grid-cols-recipe2 gap-5">
         <ul>
           {
             props.ingredients.map((ingredient: string, key) => <li className="list-disc" key={key}>{ingredient}</li>)

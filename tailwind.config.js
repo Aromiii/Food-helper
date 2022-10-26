@@ -7,10 +7,10 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        // added new 4 column grid as new4
         'recipe3': 'repeat(auto-fit, minmax(300px, 500px))',
-        'recipe2': 'repeat(auto-fit, minmax(300px, 400px) )'
-      }
+        'recipe2': 'repeat(auto-fit, minmax(300px, 400px))',
+        'addNew2col': 'repeat(auto-fit, minmax(200px, 25vw))'
+      },
     },
   },
   plugins: [],

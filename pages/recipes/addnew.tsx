@@ -11,6 +11,8 @@ const AddNew = () => {
   const [desc, setDesc] = useState("")
   const [recipe, setRecipe] = useState("")
   const [imageLink, setImageLink] = useState("")
+  const [ingredient, setIngredient] = useState("")
+  const [step, setStep] = useState("")
   let colRef: CollectionReference
 
   onAuthStateChanged(auth, (user) => {
@@ -29,7 +31,6 @@ const AddNew = () => {
       addDoc(colRef, {
         name: name,
         desc: desc,
-        recipe: recipe,
         image: imageLink
       }).then(() => {
         console.log("200")
@@ -48,10 +49,13 @@ const AddNew = () => {
   const handleDescChange = (event: { target: HTMLInputElement }) => {
     setDesc(event.target.value)
   }
-  const handleRecipeChange = (event: { target: HTMLInputElement }) => {
-    setRecipe(event.target.value)
+  const handleImageLinkChance = (event: { target: HTMLInputElement }) => {
+    setImageLink(event.target.value)
   }
-  const handleImageChance = (event: { target: HTMLInputElement }) => {
+  const handleIngredientChance = (event: { target: HTMLInputElement }) => {
+    setImageLink(event.target.value)
+  }
+  const handleStepChance = (event: { target: HTMLInputElement }) => {
     setImageLink(event.target.value)
   }
 
@@ -64,9 +68,42 @@ const AddNew = () => {
       <h1>
         Add new recipe
       </h1>
-      <NewRecipeForm onChange={handleNameChange} onChange1={handleDescChange}
-                      onChange2={handleRecipeChange} onChange3={handleImageChance}
-                      onClick={handleSubmit}/>
+      <div className="flex flex-col w-[50%] min-w-[300px]">
+        <label htmlFor="name">Name:</label>
+        <input type="text" name="name" required onChange={handleNameChange}
+               className="bg-gray-200 rounded-2xl p-1"/>
+
+        <label htmlFor="desc">Description:</label>
+        <input type="text" name="desc" onChange={handleDescChange}
+               className="bg-gray-200 rounded-2xl p-1"/>
+
+        <label htmlFor="image">Image link:</label>
+        <input type="text" name="image" onChange={handleImageLinkChance}
+               className="bg-gray-200 rounded-2xl p-1"/>
+
+        <div className="w-[100%]">
+          <label htmlFor="Ingredients">Ingredients:</label>
+          <input className="bg-gray-200 p-1 rounded-full w-full "
+                 type="text" onChange={handleIngredientChance}/>
+          <button className="bg-green-400 rounded-full p-1 my-1 w-40">
+            Add new Ingredient
+          </button>
+        </div>
+        <div className="w-full">
+          <label htmlFor="desc">Steps:</label>
+          <input className="bg-gray-200 p-1 rounded-full w-full "
+                 type="text" onChange={handleStepChance}/>
+          <button className="bg-green-400 rounded-full p-1 my-1 w-40">
+            Add new step
+          </button>
+        </div>
+
+        <div className="flex place-content-center">
+          <input onClick={handleSubmit} type="submit" value="Create new recipe"
+                 className="bg-green-400 m-5 w-40 h-12 rounded-full text-lg"/>
+        </div>
+      </div>
+      ;
     </main>
 
   )
