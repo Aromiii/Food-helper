@@ -1,8 +1,6 @@
-import {DocumentData} from "@firebase/firestore";
-import RecipeContainer from "./RecipeContainer";
 import React from "react";
 
-const RecipeSiteBody = (props: { src: string, name: string,
+const RecipeSiteMain = (props: { src: string, name: string,
   desc: string, ingredients: string[], steps: string[], onClick: () => void }) => {
   return <>
     <img src={props.src}
@@ -15,15 +13,15 @@ const RecipeSiteBody = (props: { src: string, name: string,
       <p className="my-2">
         {props.desc}
       </p>
-      <div className="m-2">
+      <div className="m-2 flex grid grid-cols-recipe2 gap-5">
         <ul>
           {
-            props.ingredients.map((ingredient: string) => <li className="list-disc">{ingredient}</li>)
+            props.ingredients.map((ingredient: string, key) => <li className="list-disc" key={key}>{ingredient}</li>)
           }
         </ul>
         <ol>
           {
-            props.steps.map((step: string) => <li className="list-decimal m">{step}</li>)
+            props.steps.map((step: string, key) => <li key={key} className="list-decimal m">{step}</li>)
           }
         </ol>
       </div>
@@ -35,4 +33,4 @@ const RecipeSiteBody = (props: { src: string, name: string,
     </button>
   </>;
 }
-export default RecipeSiteBody
+export default RecipeSiteMain

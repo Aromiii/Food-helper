@@ -4,7 +4,7 @@ import {auth, db, deleteDocument} from "../../../config/firebase";
 import {getDoc, doc, DocumentReference} from "@firebase/firestore";
 import {useState} from "react";
 import {onAuthStateChanged} from "firebase/auth";
-import RecipeSiteBody from "../../../components/recipes/recipeSiteBody";
+import RecipeSiteMain from "../../../components/recipes/recipeSiteMain";
 
 
 const Recipe = () => {
@@ -54,7 +54,7 @@ const Recipe = () => {
         <title>Recipe</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
       </Head>
-      <RecipeSiteBody src={image} name={name}
+      <RecipeSiteMain src={image} name={name}
                       desc={desc} recipe={recipe}
                       ingredients={ingredients}
                       steps={steps}
