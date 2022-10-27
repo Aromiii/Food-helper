@@ -21,8 +21,8 @@ const Recipes = () => {
   })
 
   return (
-    <main className="grid grid-cols-recipe3 justify-center place-content-start
-        bg-gradient-to-bl from-blue-800 to-green-400 h-[100%] min-h-[calc(100vh-4rem)]">
+    <main className="grid grid-cols-recipe3 justify-center
+    place-content-start h-[100%] min-h-[calc(100vh-4rem)]">
       <Head>
         <title>Recipes</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>

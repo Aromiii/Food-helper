@@ -1,9 +1,13 @@
 import Head from "next/head";
-import {useState} from "react";
-import {addDoc, collection, CollectionReference} from "@firebase/firestore";
+import React, {useState} from "react";
+import {addDoc, collection, CollectionReference, DocumentData} from "@firebase/firestore";
 import {auth, db} from "../../config/firebase";
 import {onAuthStateChanged} from "firebase/auth";
 import NewRecipeForm from "../../components/recipes/NewRecipeForm";
+
+const AddNewList = (props: { item: string }) => {
+  return <li className="m-1">{props.item}</li>;
+}
 
 const AddNew = () => {
   //TODO on refresh browser lost auth so its null
@@ -32,9 +36,10 @@ const AddNew = () => {
       addDoc(colRef, {
         name: name,
         desc: desc,
-        image: imageLink
+        image: imageLink,
+        ingredients: ingredients,
+        steps: steps,
       }).then(() => {
-        console.log("200")
         location.replace("/recipes")
       }).catch((error) => {
         alert(error)
@@ -55,21 +60,16 @@ const AddNew = () => {
   }
   const handleIngredientChance = (event: { target: HTMLInputElement }) => {
     setIngredient(event.target.value)
-    console.log(ingredient)
   }
   const handleStepChance = (event: { target: HTMLInputElement }) => {
     setStep(event.target.value)
-    console.log(step)
+
   }
   const handleNewIngredient = () => {
-    console.log("Before: ", ingredients)
-    setIngredients(kissa => kissa.concat(ingredient))
-    console.log(ingredients)
+    setIngredients(oldIngredient => oldIngredient.concat(ingredient))
   }
   const handleNewStep = () => {
-    console.log("Before: ", steps)
-    setSteps(kissa => kissa.concat(step))
-    console.log(steps)
+    setSteps(oldSteps => oldSteps.concat(step))
   }
 
   return (
@@ -96,17 +96,23 @@ const AddNew = () => {
 
         <div className="w-[100%]">
           <label htmlFor="Ingredients">Ingredients:</label>
+          {
+            ingredients.map((ingredient: string, key) => <AddNewList key={key} item={ingredient}/>)
+          }
           <input className="bg-gray-200 p-1 rounded-full w-full "
                  type="text" onChange={handleIngredientChance}/>
-          <button className="bg-green-400 rounded-full p-1 my-1 w-40" onClick={handleNewIngredient}>
+          <button className="bg-blue-400 rounded-full p-1 my-1 w-40" onClick={handleNewIngredient}>
             Add new Ingredient
           </button>
         </div>
         <div className="w-full">
           <label htmlFor="desc">Steps:</label>
+            {
+              steps.map((step: string, key) => <AddNewList key={key} item={step}/>)
+            }
           <input className="bg-gray-200 p-1 rounded-full w-full "
                  type="text" onChange={handleStepChance}/>
-          <button className="bg-green-400 rounded-full p-1 my-1 w-40"
+          <button className="bg-blue-400 rounded-full p-1 my-1 w-40"
                   onClick={handleNewStep}>
             Add new step
           </button>
@@ -117,7 +123,6 @@ const AddNew = () => {
                  className="bg-green-400 m-5 w-40 h-12 rounded-full text-lg"/>
         </div>
       </div>
-      ;
     </main>
 
   )

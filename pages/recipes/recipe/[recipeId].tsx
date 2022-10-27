@@ -54,8 +54,9 @@ const Recipe = () => {
         <title>Recipe</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
       </Head>
-      <RecipeSiteMain src={image} name={name}
-                      desc={desc} recipe={recipe}
+      <RecipeSiteMain src={image}
+                      name={name}
+                      desc={desc}
                       ingredients={ingredients}
                       steps={steps}
                       onClick={handleDeleteDocument}/>

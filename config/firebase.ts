@@ -35,7 +35,7 @@ export const signInWithGoogle = () => {
       localStorage.setItem("profilePic", result.user.photoURL)
     }
   }).catch((error) => {
-    console.log(error)
+    console.error(error)
   })
 }
 
@@ -44,7 +44,7 @@ export const signOutHandler = () => {
   signOut(auth).then(() => {
     location.replace("/")
   }).catch((error) => {
-    console.log(error)
+    console.error(error)
   });
 }
 
@@ -54,7 +54,7 @@ export const deleteDocument = (docRef: DocumentReference, urlToFor: string) => {
     .then(() => {
       location.replace(urlToFor)
     }).catch((error) => {
-    console.log(error)
+    console.error(error)
   })
 }
 
@@ -67,7 +67,7 @@ export const getDocuments = (colRef: CollectionReference, setDocuments: (value: 
         setDocuments(documents => [...documents, {...doc.data(), id: doc.id}])
       })
     }).catch(error => {
-    console.log(error.message)
+    console.error(error.message)
   })
 }
 
